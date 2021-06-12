@@ -89,9 +89,9 @@ bc['maxZ'] = 1.25
 for file_i in range(6030,6230):
     test_i = str(file_i).zfill(6)
 
-    lidar_file = '/home/ai/KITTI/training/velodyne/' + test_i + '.bin'
-    calib_file = '/home/ai/KITTI/training/calib/' + test_i + '.txt'
-    label_file = '/home/ai/KITTI/training/label_2/' + test_i + '.txt'
+    lidar_file = '$TMPDIR/KITTI/training/velodyne/' + test_i + '.bin'
+    calib_file = '$TMPDIR/KITTI/training/calib/' + test_i + '.txt'
+    label_file = '$TMPDIR/KITTI/training/label_2/' + test_i + '.txt'
 
     # load target data
     calib = load_kitti_calib(calib_file)
