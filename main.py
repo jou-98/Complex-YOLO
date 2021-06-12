@@ -12,7 +12,7 @@ from region_loss import RegionLoss
 batch_size=12
 
 # dataset
-dataset=KittiDataset(root='/home/ai/KITTI',set='train')
+dataset=KittiDataset(root='$TMPDIR/KITTI',set='train')
 data_loader = data.DataLoader(dataset, batch_size, shuffle=True)
 
 model = ComplexYOLO()
@@ -38,5 +38,5 @@ for epoch in range(200):
           loss.backward()
           optimizer.step()
 
-   if (epoch % 2 == 0):
+   if (epoch % 10 == 0):
        torch.save(model, "ComplexYOLO_epoch"+str(epoch))
