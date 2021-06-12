@@ -4,6 +4,9 @@
 #PBS -l walltime=11:59:00
 #PBS -o /home/z5211173/Complex-YOLO/job_output.txt
 
+
+source /home/z5211173/.venvs/Complex-YOLO/bin/activate
+
 cd /home/z5211173/Complex-YOLO
 
 mkdir $TMPDIR/KITTI 
