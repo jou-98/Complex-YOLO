@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#PBS -l select=1:ncpus=8:ngpus=1:mem=46gb
+#PBS -l select=1:ncpus=16:ngpus=2:mem=92gb
 #PBS -l walltime=11:59:00
 #PBS -o /home/z5211173/Complex-YOLO/job_output.txt
 
@@ -22,7 +22,7 @@ unzip $TMPDIR/KITTI/data_object_velodyne.zip -d $TMPDIR/KITTI/
 
 python3 make_train_txt.py
 
-mv train.txt $TMPDIR/KITTI/training/
+mv /home/z5211173/Complex_YOLO/train.txt $TMPDIR/KITTI/training/train.txt
 
 a=$(echo $TMPDIR)
 
