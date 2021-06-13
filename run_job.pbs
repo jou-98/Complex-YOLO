@@ -16,13 +16,19 @@ wget --no-check-certificate https://s3.eu-central-1.amazonaws.com/avg-kitti/data
 wget --no-check-certificate https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip -P $TMPDIR/KITTI/
 
 
-unzip data_object_calib.zip -d $TMPDIR/KITTI/
-unzip data_object_label_2.zip -d $TMPDIR/KITTI/
-unzip data_object_velodyne.zip -d $TMPDIR/KITTI/
+unzip $TMPDIR/KITTI/data_object_calib.zip -d $TMPDIR/KITTI/
+unzip $TMPDIR/KITTI/data_object_label_2.zip -d $TMPDIR/KITTI/
+unzip $TMPDIR/KITTI/data_object_velodyne.zip -d $TMPDIR/KITTI/
 
 python3 make_train_txt.py
 
 mv train.txt $TMPDIR/KITTI/training/
+
+a=$(echo $TMPDIR)
+
+sed -i "s,\$TMPDIR,$a,g" main.py
+sed -i "s,\$TMPDIR,$a,g" eval.py 
+sed -i "s,\$TMPDIR,$a,g" kitti.py 
 
 python3 main.py
 
