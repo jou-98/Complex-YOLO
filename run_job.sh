@@ -17,7 +17,7 @@ unzip $TMPDIR/KITTI/data_object_velodyne.zip -d $TMPDIR/KITTI/
 # mv /home/z5211173/Complex-YOLO/train.txt $TMPDIR/KITTI/training/train.txt
 
 a=$(echo $TMPDIR)
-sed -i "s,TMPDIR=.*,TMPDIR=\'$a\',g" utils.py
+sed -i "s,TMPDIR=.*,TMPDIR=\'$a/KITTI\',g" utils.py
 
 python3 main.py
 

@@ -12,7 +12,7 @@ from utils import *
 
 class KittiDataset(torch.utils.data.Dataset):
 
-    def __init__(self, root=utils.TMPDIR,set='train',type='velodyne_train'):
+    def __init__(self, root=TMPDIR,set='train',type='velodyne_train'):
         self.type = type
         self.root = root
         self.data_path = os.path.join(root, 'training')
