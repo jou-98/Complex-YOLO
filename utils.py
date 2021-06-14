@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 import math
 
+TMPDIR='$TMPDIR/KITTI'
 
 # classes
 class_list = ['Car', 'Van' , 'Truck' , 'Pedestrian' , 'Person_sitting' , 'Cyclist' , 'Tram' ]

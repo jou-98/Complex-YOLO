@@ -14,12 +14,10 @@ unzip $TMPDIR/KITTI/data_object_calib.zip -d $TMPDIR/KITTI/
 unzip $TMPDIR/KITTI/data_object_label_2.zip -d $TMPDIR/KITTI/
 unzip $TMPDIR/KITTI/data_object_velodyne.zip -d $TMPDIR/KITTI/
 
-mv /home/z5211173/Complex_YOLO/train.txt $TMPDIR/KITTI/training/train.txt
+# mv /home/z5211173/Complex-YOLO/train.txt $TMPDIR/KITTI/training/train.txt
 
 a=$(echo $TMPDIR)
-sed -i "s,\$TMPDIR,$a,g" main.py
-sed -i "s,\$TMPDIR,$a,g" eval.py 
-sed -i "s,\$TMPDIR,$a,g" kitti.py 
+sed -i "s,TMPDIR=.*,TMPDIR=\'$a\',g" utils.py
 
 python3 main.py
 
