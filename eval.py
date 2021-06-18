@@ -86,12 +86,17 @@ bc['maxY'] = 40
 bc['minZ'] = -2;
 bc['maxZ'] = 1.25
 
+basedir = "/home/z5211173/KITTI" # Change to TMPDIR if using katana
+
+with open("/home/z5211173/KITTI/training/test.txt") as file:
+    lines = file.read().splitlines()
+
 for file_i in range(6030,6230):
     test_i = str(file_i).zfill(6)
 
-    lidar_file = TMPDIR + '/training/velodyne/' + test_i + '.bin'
-    calib_file = TMPDIR + '/training/calib/' + test_i + '.txt'
-    label_file = TMPDIR + '/training/label_2/' + test_i + '.txt'
+    lidar_file = basedir + '/training/velodyne/' + test_i + '.bin'
+    calib_file = basedir + '/training/calib/' + test_i + '.txt'
+    label_file = basedir + '/training/label_2/' + test_i + '.txt'
 
     # load target data
     calib = load_kitti_calib(calib_file)
@@ -114,7 +119,7 @@ for file_i in range(6030,6230):
     # eval result
     conf_thresh = 0.7
     nms_thresh = 0.4
-    num_classes = int(8)
+    num_classes = int(3) # Changed from 8
     num_anchors = int(5)
     img = cv2.imread('eval_bv.png')
 

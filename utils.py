@@ -6,11 +6,11 @@ import numpy as np
 import cv2
 import math
 
-TMPDIR="$TMPDIR/KITTI"
+TMPDIR="/home/z5211173/KITTI"
 
 # classes
-class_list = ['Car', 'Van' , 'Truck' , 'Pedestrian' , 'Person_sitting' , 'Cyclist' , 'Tram' ]
-
+# class_list = ['Car', 'Van' , 'Truck' , 'Pedestrian' , 'Person_sitting' , 'Cyclist' , 'Tram' ]
+class_list = ['Pedestrian', 'Person_sitting','Cyclist']
 
 bc={}
 bc['minX'] = 0; bc['maxX'] = 80; bc['minY'] = -40; bc['maxY'] = 40

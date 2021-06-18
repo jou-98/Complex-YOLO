@@ -83,7 +83,7 @@ def build_targets(pred_boxes,pred_conf, pred_cls, target, anchors, num_anchors, 
 
 
 class RegionLoss(nn.Module):
-    def __init__(self, num_classes=8, num_anchors=5):
+    def __init__(self, num_classes=3, num_anchors=5): # num_classes changed from 8
         super(RegionLoss, self).__init__()
 
         self.anchors = anchors
