@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import time
 import cv2
-from scipy import misc
+#from scipy import misc
+import imageio
 from region_loss import build_targets
 
 from utils import *
@@ -129,7 +130,7 @@ for file_i in lines:
     a = np.fromfile(lidar_file, dtype=np.float32).reshape(-1, 4)
     b = removePoints(a, bc)
     rgb_map = makeBVFeature(b, bc, 40 / 512)
-    misc.imsave('eval_bv.png', rgb_map)
+    imageio.imwrite('eval_bv.png', rgb_map)
 
     # load trained model  and  forward
     input = torch.from_numpy(rgb_map)  # (512, 1024, 3)
@@ -173,4 +174,4 @@ for file_i in lines:
     #     rect_bottom2 = int(img_x + img_height / 2)
     #     cv2.rectangle(img, (rect_top1, rect_top2), (rect_bottom1, rect_bottom2), (0, 0, 255), 1)
 
-    misc.imsave('eval_bv' + test_i + '.png', img)
+    imageio.imwrite('eval_bv' + test_i + '.png', img)
