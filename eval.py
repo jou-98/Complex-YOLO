@@ -113,8 +113,8 @@ basedir = "/home/z5211173/KITTI" # Change to TMPDIR if using katana
 with open("/home/z5211173/KITTI/training/test.txt") as file:
     lines = file.read().splitlines()
 
-for file_i in range(6030,6230):
-    test_i = str(file_i).zfill(6)
+for file_i in lines:
+    test_i = file_i #str(file_i).zfill(6)
 
     lidar_file = basedir + '/training/velodyne/' + test_i + '.bin'
     calib_file = basedir + '/training/calib/' + test_i + '.txt'
