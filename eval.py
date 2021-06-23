@@ -69,7 +69,9 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors, target):
 
     pred_boxes = convert2cpu(pred_boxes.transpose(0, 1).contiguous().view(-1, (7 + nC)))  # torch.Size([2560, 15])
 
-
+    target = target.reshape((1,target.shape[0],target.shape[1]))
+    pred_boxes = pred_boxes.reshape((1,pred_boxes.shape[0],pred_boxes.shape[1]))
+    
     nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls = build_targets(
         pred_boxes=pred_boxes.cpu().data,
         pred_conf=pred_conf.cpu().data,
