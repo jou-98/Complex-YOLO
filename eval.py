@@ -74,13 +74,13 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors, target):
         pred_boxes=pred_boxes.cpu().data,
         pred_conf=pred_conf.cpu().data,
         pred_cls=pred_cls.cpu().data,
-        target=targets.cpu().data,
+        target=target # Changed from targets.cpu().data,
         anchors=scaled_anchors.cpu().data,
         num_anchors=nA,
-        num_classes=self.num_classes,
+        num_classes=num_classes, # Changed from self.num_classes
         nH=nH,
         nW=nW,
-        ignore_thres=self.ignore_thres
+        ignore_thres=0.6 # Changed from self.ignore_thres
     )
     print('nGT %d, recall %f, precision %f, proposals %d, loss: x %f, \
             y %f, w %f, h %f, conf %f, cls %f, total %f' % \
