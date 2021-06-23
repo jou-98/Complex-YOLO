@@ -22,7 +22,7 @@ def drawRect(img, pt1, pt2, pt3, pt4, color, lineWidth):
     cv2.line(img, pt1, pt4, color, lineWidth)
 
 
-def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors):
+def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors, target): # Change: added target argument
     if x.dim() == 3:
         x = x.unsqueeze(0)
 
@@ -146,7 +146,7 @@ for file_i in lines:
     num_anchors = int(5)
     img = cv2.imread('eval_bv.png')
 
-    all_boxes = get_region_boxes(output, conf_thresh, num_classes, anchors, num_anchors)
+    all_boxes = get_region_boxes(output, conf_thresh, num_classes, anchors, num_anchors, target) # Change: added target argument
 
     for i in range(len(all_boxes)):
         pred_img_y = int(all_boxes[i][0] * 1024.0 / 32.0)  # 32 cell = 1024 pixels
