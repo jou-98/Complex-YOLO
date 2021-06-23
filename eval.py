@@ -64,16 +64,18 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors, target):
     pred_boxes[..., 2] = torch.exp(w.data) * anchor_w
     pred_boxes[..., 3] = torch.exp(h.data) * anchor_h
 
+    pred_boxes_new = pred_boxes.clone().detach()
+
     pred_boxes[..., 6] = pred_conf
     pred_boxes[..., 7:(7 + nC) ] = pred_cls
 
     pred_boxes = convert2cpu(pred_boxes.transpose(0, 1).contiguous().view(-1, (7 + nC)))  # torch.Size([2560, 15])
 
     target = target.reshape((1,target.shape[0],target.shape[1]))
-    pred_boxes = pred_boxes.reshape((1,pred_boxes.shape[0],pred_boxes.shape[1]))
-    
+
+
     nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls = build_targets(
-        pred_boxes=pred_boxes.cpu().data,
+        pred_boxes=pred_boxes_new.cpu().data,
         pred_conf=pred_conf.cpu().data,
         pred_cls=pred_cls.cpu().data,
         target=torch.tensor(target), # Changed from targets.cpu().data,
