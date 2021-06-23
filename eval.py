@@ -9,6 +9,7 @@ import matplotlib.image as mpimg
 import time
 import cv2
 from scipy import misc
+from region_loss import build_targets
 
 from utils import *
 
@@ -54,6 +55,7 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors):
     anchor_w = scaled_anchors[:, 0:1].view((1, nA, 1, 1))
     anchor_h = scaled_anchors[:, 1:2].view((1, nA, 1, 1))
 
+
     # Add offset and scale with anchors
     pred_boxes = FloatTensor(prediction.shape)
     pred_boxes[..., 0] = x.data + grid_x
@@ -65,6 +67,26 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors):
     pred_boxes[..., 7:(7 + nC) ] = pred_cls
 
     pred_boxes = convert2cpu(pred_boxes.transpose(0, 1).contiguous().view(-1, (7 + nC)))  # torch.Size([2560, 15])
+
+
+    nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls = build_targets(
+        pred_boxes=pred_boxes.cpu().data,
+        pred_conf=pred_conf.cpu().data,
+        pred_cls=pred_cls.cpu().data,
+        target=targets.cpu().data,
+        anchors=scaled_anchors.cpu().data,
+        num_anchors=nA,
+        num_classes=self.num_classes,
+        nH=nH,
+        nW=nW,
+        ignore_thres=self.ignore_thres
+    )
+    print('nGT %d, recall %f, precision %f, proposals %d, loss: x %f, \
+            y %f, w %f, h %f, conf %f, cls %f, total %f' % \
+            (nGT, recall,  precision,  nProposals, loss_x.data, \
+            loss_y.data, loss_w.data, loss_h.data, loss_conf.data, \
+            loss_cls.data,loss.data))
+
 
     all_boxes = []
     for i in range(2560):

@@ -8,6 +8,7 @@ from complexYOLO import ComplexYOLO
 from kitti import KittiDataset
 from region_loss import RegionLoss
 
+from utils import *
 
 batch_size=12
 
