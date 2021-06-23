@@ -86,11 +86,13 @@ def get_region_boxes(x, conf_thresh, num_classes, anchors, num_anchors, target):
         nW=nW,
         ignore_thres=0.6 # Changed from self.ignore_thres
     )
-    print('nGT %d, recall %f, precision %f, proposals %d, loss: x %f, \
-            y %f, w %f, h %f, conf %f, cls %f, total %f' % \
-            (nGT, recall,  precision,  nProposals, loss_x.data, \
-            loss_y.data, loss_w.data, loss_h.data, loss_conf.data, \
-            loss_cls.data,loss.data))
+
+    nProposals = int((pred_conf > 0.5).sum().item())
+    recall = float(nCorrect / nGT) if nGT else 1
+    precision = float(nCorrect / nProposals)
+
+    print('nGT %d, recall %f, precision %f, proposals %d' % \
+            (nGT, recall,  precision,  nProposals))
 
 
     all_boxes = []
